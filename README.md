@@ -41,6 +41,38 @@ hardware, operating system, and PyTorch installation. See the
 [PyTorch installation guide](https://pytorch.org/get-started/locally/) for platform
 requirements.
 
+## Test your saved model
+
+You can evaluate existing weights without retraining. By default, these commands
+load the most recently saved `best.pt` under `runs/` and print its path and dataset.
+To choose a specific model, add `--checkpoint path/to/best.pt`.
+
+```sh
+# Evaluate the complete official test set
+uv run evaluate.py
+
+# Inspect a single test example, with its true label and top 3 predictions
+uv run evaluate.py --sample 0
+
+# Try your own image
+uv run evaluate.py --image /path/to/image.png
+```
+
+Sample mode also saves `test-sample-0.png` beside the checkpoint so you can open
+the image you tested. You can choose other examples with `--sample 1`, `--sample 2`,
+and so on. Full evaluation prints accuracy and loss; these commands do not update
+model weights.
+
+Use a model trained for the image you want to test: the Fashion-MNIST model
+recognizes clothing categories, while an MNIST model recognizes digits. Custom
+images are converted to the model's color mode, resized, and normalized. They
+should resemble the training images. Fashion-MNIST uses small grayscale product
+images on dark backgrounds; ordinary phone photos may perform poorly. The top 3
+percentages are model scores, not calibrated probabilities that an answer is right.
+
+A fresh clone has no saved weights because `runs/` stays local. Train a model first
+or provide a compatible checkpoint from another run.
+
 ## Choose what your model learns
 
 | Dataset | What it recognizes | Image format | Official train / test images | Start here if… |
@@ -104,8 +136,8 @@ runs/
   test set.
 
 The checkpoint contains model weights, class names, input dimensions,
-normalization settings, and run configuration. There is no prediction command
-yet; this starter focuses on training and evaluation.
+normalization settings, and run configuration. Use `evaluate.py` to reload it for
+evaluation or individual predictions.
 
 ### A real first run
 
@@ -164,6 +196,7 @@ execution, add `--device cpu`. For Apple GPU setup, see
 | File | Purpose |
 | --- | --- |
 | [`train.py`](train.py) | Network, dataset loading, training, and evaluation. |
+| [`evaluate.py`](evaluate.py) | Test saved weights or predict a single image. |
 | [`pyproject.toml`](pyproject.toml) | Python requirements and dependencies. |
 | [`uv.lock`](uv.lock) | Locked dependency versions for repeatable setup. |
 | [`.python-version`](.python-version) | Default Python version for uv. |
