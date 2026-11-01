@@ -1,0 +1,10 @@
+[project]
+name = "cnn-lab"
+version = "0.1.0"
+description = "Train your first image classifier with PyTorch on MNIST, Fashion-MNIST, or CIFAR-10"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["torch>=2.8", "torchvision>=0.23"]
+
+[project.urls]
+Repository = "https://github.com/otto-daedalusdesignlabs/cnn-lab"

@@ -1,0 +1,31 @@
+{
+  "config": {
+    "dataset": "fashion-mnist",
+    "epochs": 1,
+    "batch_size": 128,
+    "lr": 0.001,
+    "seed": 42,
+    "device": "auto",
+    "limit_train": 2048
+  },
+  "device": "mps",
+  "torch_version": "2.15.0",
+  "history": [
+    {
+      "epoch": 1,
+      "train": {
+        "loss": 1.744845986366272,
+        "accuracy": 0.40478515625
+      },
+      "validation": {
+        "loss": 1.0111687825520834,
+        "accuracy": 0.6531666666666667
+      }
+    }
+  ],
+  "best_epoch": 1,
+  "test": {
+    "loss": 1.00045703125,
+    "accuracy": 0.6631
+  }
+}
